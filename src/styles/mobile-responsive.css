@@ -216,3 +216,130 @@ img {
     max-width: 100%;
   }
 }
+
+/* Hide scrollbars for better mobile experience */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 768px) {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .overflow-y-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Mobile survey cards improvements */
+@media (max-width: 768px) {
+  .survey-card {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .survey-card h4 {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+  .survey-card p {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+}
+
+/* Mobile plan cards horizontal scroll */
+@media (max-width: 768px) {
+  .plan-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .plan-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+  }
+}
+
+/* Mobile withdrawal form improvements */
+@media (max-width: 768px) {
+  .withdrawal-form input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .withdrawal-balance {
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .withdrawal-balance .amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+/* Mobile stats grid improvements */
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  
+  .stat-card {
+    padding: 0.75rem;
+  }
+  
+  .stat-card .title {
+    font-size: 0.75rem;
+  }
+  
+  .stat-card .value {
+    font-size: 1rem;
+  }
+}
+
+/* Touch-friendly button sizing */
+@media (max-width: 768px) {
+  .btn-mobile {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile navigation improvements */
+@media (max-width: 768px) {
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    padding: 0.5rem;
+    z-index: 1000;
+  }
+  
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+}

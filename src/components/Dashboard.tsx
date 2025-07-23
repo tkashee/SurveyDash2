@@ -181,9 +181,9 @@ const Dashboard = () => {
     <div className="flex min-h-screen w-full bg-dashboard">
       <Sidebar />
       
-      <main className="flex-1 ml-[240px] mt-16">
+      <main className="flex-1 ml-0 md:ml-[240px] mt-16">
         {currentSurvey ? (
-          <div className="p-6 lg:p-8">
+          <div className="p-4 md:p-6 lg:p-8">
             <SurveyQuestion
               questions={currentSurvey.questions || []}
               surveyId={currentSurvey.id}
@@ -197,29 +197,29 @@ const Dashboard = () => {
         ) : (
           <div className="overflow-y-auto h-[calc(100vh-4rem)]">
             {/* Page 1: Dashboard Overview */}
-            <div className="min-h-screen p-6 lg:p-8">
+            <div className="min-h-screen p-4 md:p-6 lg:p-8">
               {/* Header */}
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <div className="mb-6 md:mb-8">
+                <h1 className="text-2xl md:text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                   Welcome back, {userName}!
                 </h1>
-                <p className="text-muted-foreground mt-2">
+                <p className="text-muted-foreground mt-2 text-sm md:text-base">
                   Here's your survey dashboard overview
                 </p>
               </div>
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              {/* Stats Grid - Mobile Responsive */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
                 {stats.map((stat, index) => (
                   <Card key={index} className="shadow-soft hover:shadow-glow transition-all duration-300">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">
+                      <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">
                         {stat.title}
                       </CardTitle>
                       <stat.icon className={`h-4 w-4 ${stat.color}`} />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{stat.value}</div>
+                      <div className="text-lg md:text-2xl font-bold">{stat.value}</div>
                       <p className="text-xs text-success mt-1">
                         {stat.change} from last month
                       </p>
@@ -229,27 +229,27 @@ const Dashboard = () => {
               </div>
 
               {/* Referral Code Section */}
-              <div className="mb-8">
+              <div className="mb-6 md:mb-8">
                 <ReferralCodeInput />
               </div>
 
-              {/* Available Surveys Section */}
-              <Card className="shadow-soft mb-8">
+              {/* Available Surveys Section - Mobile Optimized */}
+              <Card className="shadow-soft mb-6 md:mb-8">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Star className="h-5 w-5 text-accent" />
+                  <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+                    <Star className="h-4 w-4 md:h-5 md:w-5 text-accent" />
                     Available Surveys
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-sm">
                     Complete surveys to earn money
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="max-h-96 overflow-y-auto border border-border/50 rounded-lg bg-muted/20 p-4">
-                    <div className="space-y-4">
+                <CardContent className="p-2 md:p-6">
+                  <div className="max-h-80 md:max-h-96 overflow-y-auto border border-border/50 rounded-lg bg-muted/20 p-2 md:p-4">
+                    <div className="space-y-3 md:space-y-4">
                       {availableSurveys.length === 0 ? (
-                        <div className="text-center py-8">
-                          <p className="text-muted-foreground mb-4">
+                        <div className="text-center py-6 md:py-8">
+                          <p className="text-muted-foreground mb-4 text-sm md:text-base">
                             {userProgress.surveysCompletedToday >= (currentPlan?.dailySurvey || 0) 
                               ? "You've completed all surveys for today! Come back tomorrow." 
                               : "No surveys available for your current plan. Consider upgrading!"}
@@ -262,28 +262,28 @@ const Dashboard = () => {
                         </div>
                       ) : (
                         availableSurveys.map((survey) => (
-                          <div key={survey.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors bg-background">
+                          <div key={survey.id} className="flex flex-col md:flex-row md:items-center justify-between p-3 md:p-4 border rounded-lg hover:bg-muted/50 transition-colors bg-background space-y-3 md:space-y-0">
                             <div className="flex-1">
-                              <h4 className="font-semibold">{survey.title}</h4>
-                              <p className="text-sm text-muted-foreground mb-2">{survey.description}</p>
-                              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <h4 className="font-semibold text-sm md:text-base">{survey.title}</h4>
+                              <p className="text-xs md:text-sm text-muted-foreground mb-2">{survey.description}</p>
+                              <div className="flex flex-wrap items-center gap-2 md:gap-4 text-xs md:text-sm text-muted-foreground">
                                 <span>⏱️ {survey.duration}</span>
-                                <Badge variant="secondary">{survey.category}</Badge>
-                                <Badge variant={survey.difficulty === "Easy" ? "default" : "secondary"}>
+                                <Badge variant="secondary" className="text-xs">{survey.category}</Badge>
+                                <Badge variant={survey.difficulty === "Easy" ? "default" : "secondary"} className="text-xs">
                                   {survey.difficulty}
                                 </Badge>
-                                <Badge variant="outline">
+                                <Badge variant="outline" className="text-xs">
                                   Requires {survey.requiredPlan}
                                 </Badge>
                               </div>
                             </div>
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center justify-between md:justify-end gap-3">
                               <div className="text-right">
-                                <div className="font-bold text-primary">KSh {survey.reward}</div>
+                                <div className="font-bold text-primary text-sm md:text-base">KSh {survey.reward}</div>
                               </div>
                               <Button 
                                 size="sm" 
-                                className="bg-gradient-primary hover:opacity-90"
+                                className="bg-gradient-primary hover:opacity-90 text-xs md:text-sm px-3 md:px-4"
                                 onClick={() => handleStartSurvey(survey.id)}
                                 disabled={userProgress.surveysCompletedToday >= (currentPlan?.dailySurvey || 0)}
                               >
@@ -299,42 +299,42 @@ const Dashboard = () => {
               </Card>
             </div>
 
-            {/* Page 2: Activity & Withdrawal */}
-            <div className="min-h-screen p-6 lg:p-8 bg-gradient-to-br from-background to-muted/20">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-foreground">Activity & Earnings</h2>
-                <p className="text-muted-foreground mt-2">
+            {/* Page 2: Activity & Withdrawal - Mobile Optimized */}
+            <div className="min-h-screen p-4 md:p-6 lg:p-8 bg-gradient-to-br from-background to-muted/20">
+              <div className="mb-6 md:mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-foreground">Activity & Earnings</h2>
+                <p className="text-muted-foreground mt-2 text-sm md:text-base">
                   Track your progress and manage withdrawals
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Recent Activity */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                {/* Recent Activity - Mobile Optimized */}
                 <Card className="shadow-soft">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Award className="h-5 w-5 text-primary" />
+                    <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+                      <Award className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                       Recent Activity
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className="text-sm">
                       Your latest surveys and achievements
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="max-h-80 overflow-y-auto border border-border/50 rounded-lg bg-muted/20 p-4">
-                      <div className="space-y-4">
+                  <CardContent className="p-2 md:p-6">
+                    <div className="max-h-64 md:max-h-80 overflow-y-auto border border-border/50 rounded-lg bg-muted/20 p-2 md:p-4">
+                      <div className="space-y-3 md:space-y-4">
                         {userProgress.completedSurveys.length === 0 ? (
-                          <p className="text-muted-foreground text-center py-8">No surveys completed yet</p>
+                          <p className="text-muted-foreground text-center py-6 md:py-8 text-sm">No surveys completed yet</p>
                         ) : (
                           userProgress.completedSurveys.slice(-5).map((surveyId, index) => {
                             const survey = surveyData.surveys.find(s => s.id === surveyId);
                             if (!survey) return null;
                             
                             return (
-                              <div key={surveyId} className="flex flex-col space-y-2 p-3 bg-background rounded border">
+                              <div key={surveyId} className="flex flex-col space-y-2 p-2 md:p-3 bg-background rounded border">
                                 <div className="flex justify-between items-start">
                                   <div className="flex-1">
-                                    <p className="font-medium text-sm">{survey.title}</p>
+                                    <p className="font-medium text-xs md:text-sm">{survey.title}</p>
                                     <p className="text-xs text-muted-foreground">Recently completed</p>
                                   </div>
                                   <Badge variant="default" className="text-xs">
@@ -342,7 +342,7 @@ const Dashboard = () => {
                                   </Badge>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                  <span className="text-sm font-semibold text-success">KSh {survey.reward}</span>
+                                  <span className="text-xs md:text-sm font-semibold text-success">KSh {survey.reward}</span>
                                 </div>
                               </div>
                             );

@@ -154,30 +154,30 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
   return (
     <Card className={`earnings-card ${className} flex flex-col h-full`}>
       <CardHeader className="flex-shrink-0 border-b">
-        <CardTitle className="flex items-center gap-2 text-2xl font-bold text-foreground">
-          <DollarSign className="h-5 w-5 text-primary" />
+        <CardTitle className="flex items-center gap-2 text-lg md:text-2xl font-bold text-foreground">
+          <DollarSign className="h-4 w-4 md:h-5 md:w-5 text-primary" />
           Withdraw Earnings
         </CardTitle>
-        <CardDescription className="text-base text-foreground/80">
+        <CardDescription className="text-sm md:text-base text-foreground/80">
           Withdraw your earnings directly to your MPESA account
         </CardDescription>
       </CardHeader>
       
-      <CardContent className="flex-1 p-4">
+      <CardContent className="flex-1 p-2 md:p-4">
         {/* Withdrawal Scroll Container */}
         <div className="h-full border border-border/50 rounded-lg bg-muted/20">
-          <div className="h-full overflow-y-scroll p-4 space-y-4">
-            {/* Balance Display */}
-            <div className="bg-gradient-secondary/50 p-4 rounded-lg border border-border/50 bg-background">
-              <div className="flex justify-between items-center">
-                <span className="text-base font-medium text-foreground">Available Balance</span>
-                <span className="text-3xl font-bold text-primary">
+          <div className="h-full overflow-y-scroll p-2 md:p-4 space-y-3 md:space-y-4">
+            {/* Balance Display - Mobile Optimized */}
+            <div className="bg-gradient-secondary/50 p-3 md:p-4 rounded-lg border border-border/50 bg-background">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <span className="text-sm md:text-base font-medium text-foreground">Available Balance</span>
+                <span className="text-2xl md:text-3xl font-bold text-primary">
                   KSh {availableBalance.toLocaleString()}
                 </span>
               </div>
-              <div className="flex justify-between items-center mt-2">
-                <span className="text-sm text-foreground/70">Minimum Withdrawal</span>
-                <span className="text-sm font-semibold text-foreground">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-2 gap-1">
+                <span className="text-xs md:text-sm text-foreground/70">Minimum Withdrawal</span>
+                <span className="text-xs md:text-sm font-semibold text-foreground">
                   KSh {minimumWithdrawal.toLocaleString()}
                 </span>
               </div>
@@ -187,7 +187,7 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
             {!canWithdraw && (
               <Alert className="bg-background">
                 <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
+                <AlertDescription className="text-xs md:text-sm">
                   You need KSh {(minimumWithdrawal - availableBalance).toLocaleString()} more to reach the minimum withdrawal amount.
                 </AlertDescription>
               </Alert>
@@ -196,17 +196,17 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
             {canWithdraw && (
               <Alert className="bg-success/10 border-success">
                 <CheckCircle className="h-4 w-4 text-success" />
-                <AlertDescription className="text-success">
+                <AlertDescription className="text-success text-xs md:text-sm">
                   You're eligible for withdrawal!
                 </AlertDescription>
               </Alert>
             )}
 
-            {/* Withdrawal Form */}
-            <div className="space-y-4 p-4 bg-background rounded-lg border">
+            {/* Withdrawal Form - Mobile Optimized */}
+            <div className="space-y-3 md:space-y-4 p-3 md:p-4 bg-background rounded-lg border">
               <div>
-                <Label htmlFor="mpesa-number" className="flex items-center gap-2">
-                  <Phone className="h-4 w-4" />
+                <Label htmlFor="mpesa-number" className="flex items-center gap-2 text-xs md:text-sm">
+                  <Phone className="h-3 w-3 md:h-4 md:w-4" />
                   MPESA Number
                 </Label>
                 <Input
@@ -217,7 +217,7 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
                   onChange={(e) => setMpesaNumber(formatMpesaNumber(e.target.value))}
                   maxLength={13}
                   disabled={isProcessing}
-                  className="border-2 focus:border-primary"
+                  className="border-2 focus:border-primary text-sm md:text-base"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
                   Enter your registered MPESA number
@@ -234,7 +234,7 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
               </div>
 
               <div>
-                <Label htmlFor="withdrawal-amount">Withdrawal Amount</Label>
+                <Label htmlFor="withdrawal-amount" className="text-xs md:text-sm">Withdrawal Amount</Label>
                 <Input
                   id="withdrawal-amount"
                   type="number"
@@ -244,9 +244,9 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
                   min={0}
                   max={availableBalance}
                   disabled={isProcessing}
-                  className="border-2 focus:border-primary"
+                  className="border-2 focus:border-primary text-sm md:text-base"
                 />
-                <div className="flex justify-between text-xs mt-1">
+                <div className="flex flex-col sm:flex-row sm:justify-between text-xs mt-1 gap-1">
                   <span className="text-muted-foreground">Min: KSh {minimumWithdrawal.toLocaleString()}</span>
                   <span className="text-muted-foreground">Max: KSh {availableBalance.toLocaleString()}</span>
                 </div>
@@ -264,7 +264,7 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
               </div>
 
               <Button 
-                className="w-full bg-gradient-primary hover:opacity-90"
+                className="w-full bg-gradient-primary hover:opacity-90 text-xs md:text-sm py-2 md:py-3"
                 onClick={handleWithdrawal}
                 disabled={isProcessing || !mpesaNumber || !withdrawalAmount}
               >
@@ -272,18 +272,18 @@ const WithdrawalContainer: React.FC<WithdrawalContainerProps> = ({ className }) 
               </Button>
             </div>
 
-            {/* Referral Code Section */}
-            <div className="border-t pt-4 bg-background rounded-lg border p-4">
-              <h4 className="font-medium mb-2 flex items-center gap-2">
-                <Users className="h-4 w-4" />
+            {/* Referral Code Section - Mobile Optimized */}
+            <div className="border-t pt-3 md:pt-4 bg-background rounded-lg border p-3 md:p-4">
+              <h4 className="font-medium mb-2 flex items-center gap-2 text-sm md:text-base">
+                <Users className="h-3 w-3 md:h-4 md:w-4" />
                 Your Referral Code
               </h4>
               <ReferralCodeSection referralCode={userProgress.referrals.referralCode} />
             </div>
 
-            {/* Withdrawal History */}
-            <div className="border-t pt-4 pb-4 bg-background rounded-lg border p-4">
-              <h4 className="font-medium mb-2">Recent Withdrawals</h4>
+            {/* Withdrawal History - Mobile Optimized */}
+            <div className="border-t pt-3 md:pt-4 pb-3 md:pb-4 bg-background rounded-lg border p-3 md:p-4">
+              <h4 className="font-medium mb-2 text-sm md:text-base">Recent Withdrawals</h4>
               <WithdrawalHistory />
             </div>
           </div>

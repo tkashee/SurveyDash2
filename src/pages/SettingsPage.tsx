@@ -79,52 +79,52 @@ const SettingsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex min-h-screen w-full bg-settings">
-      <div className="flex-1 p-6 lg:p-8">
+      <div className="flex-1 p-4 md:p-6 lg:p-8">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 bg-clip-text text-transparent">
+          <div className="mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 bg-clip-text text-transparent">
               Account Settings
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm md:text-base">
               Manage your account and preferences
             </p>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             {/* Account Information and Quick Actions */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
               {/* Account Information */}
               <Card className="shadow-soft">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <User className="h-5 w-5 text-primary" />
+                  <CardTitle className="flex items-center space-x-2 text-lg md:text-xl">
+                    <User className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                     <span>Account Information</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-3 md:space-y-4">
                   {userProfile ? (
                     <>
-                      <div className="space-y-3">
+                      <div className="space-y-2 md:space-y-3">
                         <div>
-                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Email</p>
-                          <p className="text-sm text-slate-900 dark:text-slate-100">{userProfile.email}</p>
+                          <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">Email</p>
+                          <p className="text-xs md:text-sm text-slate-900 dark:text-slate-100 break-all">{userProfile.email}</p>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Account Created</p>
-                          <p className="text-sm text-slate-900 dark:text-slate-100">
+                          <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">Account Created</p>
+                          <p className="text-xs md:text-sm text-slate-900 dark:text-slate-100">
                             {new Date(userProfile.created_at).toLocaleDateString()}
                           </p>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Last Updated</p>
-                          <p className="text-sm text-slate-900 dark:text-slate-100">
+                          <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">Last Updated</p>
+                          <p className="text-xs md:text-sm text-slate-900 dark:text-slate-100">
                             {userProfile.updated_at ? new Date(userProfile.updated_at).toLocaleDateString() : 'Never'}
                           </p>
                         </div>
                       </div>
                     </>
                   ) : (
-                    <p className="text-muted-foreground">No user profile found</p>
+                    <p className="text-muted-foreground text-sm">No user profile found</p>
                   )}
                 </CardContent>
               </Card>
@@ -132,32 +132,32 @@ const SettingsPage: React.FC = () => {
               {/* Quick Actions */}
               <Card className="shadow-soft">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Settings className="h-5 w-5 text-primary" />
+                  <CardTitle className="flex items-center space-x-2 text-lg md:text-xl">
+                    <Settings className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                     <span>Quick Actions</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-2 md:space-y-3">
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start"
+                    className="w-full justify-start text-sm md:text-base py-2 md:py-3"
                     onClick={() => navigate('/dashboard')}
                   >
                     Go to Dashboard
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start"
+                    className="w-full justify-start text-sm md:text-base py-2 md:py-3"
                     onClick={() => navigate('/earnings')}
                   >
                     View Earnings
                   </Button>
                   <Button 
                     variant="destructive" 
-                    className="w-full"
+                    className="w-full text-sm md:text-base py-2 md:py-3"
                     onClick={handleLogout}
                   >
-                    <LogOut className="h-4 w-4 mr-2" />
+                    <LogOut className="h-3 w-3 md:h-4 md:w-4 mr-2" />
                     Sign Out
                   </Button>
                 </CardContent>

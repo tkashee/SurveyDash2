@@ -55,17 +55,93 @@ const PlanUpgrade = () => {
   };
 
   return (
-    <div className="space-y-6 relative">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+    <div className="space-y-4 md:space-y-6 relative">
+      <div className="text-center px-4">
+        <h2 className="text-2xl md:text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
           Choose Your Survey Plan
         </h2>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-2 text-sm md:text-base">
           Upgrade your plan to earn more money daily
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Mobile: Horizontal Scroll, Desktop: Grid */}
+      <div className="md:hidden">
+        <div className="flex gap-4 overflow-x-auto pb-4 px-4 scrollbar-hide">
+          {planData.surveyPlans.map((plan) => (
+            <Card 
+              key={plan.planName} 
+              className={`relative flex-shrink-0 w-72 transition-all duration-300 hover:shadow-glow ${
+                currentPlan === plan.planName 
+                  ? 'ring-2 ring-primary shadow-glow bg-gradient-to-br from-primary/10 via-blue-100/50 to-purple-100/50' 
+                  : getPlanColor(plan.planName)
+              }`}
+            >
+              {currentPlan === plan.planName && (
+                <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gradient-primary text-xs">
+                  Current Plan
+                </Badge>
+              )}
+              
+              <CardHeader className="text-center pb-3">
+                <div className="flex justify-center mb-2">
+                  {getPlanIcon(plan.planName)}
+                </div>
+                <CardTitle className="text-lg">{plan.planName}</CardTitle>
+                <div className="text-center">
+                  <span className="text-2xl font-bold">KSh {plan.price}</span>
+                  {plan.price !== "0" && <span className="text-muted-foreground text-sm">/month</span>}
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-3 pt-0">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Check className="h-3 w-3 text-success flex-shrink-0" />
+                    <span className="text-xs">{plan.dailySurvey} surveys per day</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <Check className="h-3 w-3 text-success flex-shrink-0" />
+                    <span className="text-xs">KSh {plan.earningPerSurvey} per survey</span>
+                  </div>
+                  
+                  {plan.dailyIncome > 0 && (
+                    <div className="flex items-center gap-2">
+                      <Check className="h-3 w-3 text-success flex-shrink-0" />
+                      <span className="text-xs">Up to KSh {plan.dailyIncome.toLocaleString()} daily</span>
+                    </div>
+                  )}
+                  
+                  {plan.monthlyIncome > 0 && (
+                    <div className="flex items-center gap-2">
+                      <Check className="h-3 w-3 text-success flex-shrink-0" />
+                      <span className="text-xs">Up to KSh {plan.monthlyIncome.toLocaleString()} monthly</span>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center gap-2">
+                    <Check className="h-3 w-3 text-success flex-shrink-0" />
+                    <span className="text-xs">Min withdrawal: KSh {plan.minimumWithdrawal.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                <Button 
+                  className="w-full bg-gradient-primary hover:opacity-90 text-xs py-2"
+                  disabled={currentPlan === plan.planName}
+                  onClick={() => handleUpgrade(plan)}
+                >
+                  {currentPlan === plan.planName ? 'Current Plan' : 
+                   plan.price === "0" ? 'Free Plan' : 'Upgrade Now'}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: Grid Layout */}
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
         {planData.surveyPlans.map((plan) => (
           <Card 
             key={plan.planName} 
